@@ -24,9 +24,10 @@ body {
 
 .title {
     font-family: 'Playfair Display', serif;
-    font-size: 4rem;
+    /*font-size: 4rem;*/
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     animation: fadeInDown 1.5s;
+	font-size: 50px;
 }
 
 .calendar-grid {
