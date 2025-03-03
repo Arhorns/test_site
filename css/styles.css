@@ -1,79 +1,468 @@
-:root {
-    --primary-color: #d4a373;
-    --secondary-color: #fefae0;
-    --accent-color: #606c38;
+/* Базовые адаптивные настройки */
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
 }
 
+@media (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+/* Общие стили */
 body {
-    font-family: 'Montserrat', sans-serif;
-    line-height: 1.6;
-    background: var(--secondary-color);
+    background: #fffafa;
+    color: #5a4a4a;
+    font-family: 'Playfair Display', serif;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    overflow-x: hidden;
 }
 
-.hero {
-    height: 100vh;
+.section {
     position: relative;
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
-                url('../images/cover.jpg') center/cover;
+    background: linear-gradient(to bottom right, #fff, #fff9f9);
+    margin: 2rem 0;
+    padding: 4rem 1rem;
+    box-shadow: 0 0 30px rgba(0,0,0,0.05);
+}
+
+.section h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Фон с сердечками */
+.heart-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.heart-bg span {
+    position: absolute;
+    color: rgba(255,107,107,0.3);
+    animation: float 15s infinite linear;
+}
+
+@keyframes float {
+    0% { transform: translateY(110vh) rotate(0deg); }
+    100% { transform: translateY(-10vh) rotate(360deg); }
+}
+
+/* Герой-секция */
+.hero {
+    position: relative;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
-    color: white;
+    justify-content: center;
+    min-height: 100vh;
+    background: transparent;
+    padding: 1rem;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 2rem;
 }
 
 .title {
-    font-family: 'Playfair Display', serif;
-    /*font-size: 4rem;*/
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-    animation: fadeInDown 1.5s;
-	font-size: 50px;
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    letter-spacing: 3px;
 }
 
-.calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 10px;
-    max-width: 800px;
-    margin: 0 auto;
+.date {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem !important;
+    margin-bottom: 1rem;
 }
 
-.day {
-    padding: 15px;
-    border: 1px solid #ddd;
-    text-align: center;
-    position: relative;
-}
-
-.heart-date {
-    background: var(--primary-color);
-    color: white;
-    border-radius: 50%;
+.heart-divider {
+    font-size: 3rem;
+    color: #ff6b6b;
+    margin: 1rem 0;
     animation: pulse 2s infinite;
 }
 
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
+.cover-image {
+    width: 80%;
+    max-width: 600px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    margin: 2rem auto;
+    border: 3px solid #fff;
+}
+
+/* Детские фото */
+.photos-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    position: relative;
+}
+
+.photo-container {
+    width: 200px;
+    height: 250px;
+    transform: rotate(-5deg);
+    transition: all 0.5s ease;
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    border: 3px solid #fff;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.photo-container:nth-child(even) {
+    transform: rotate(5deg);
+}
+
+.photo-container:hover {
+    transform: rotate(0deg) scale(1.1);
+    z-index: 2;
+}
+
+.photo-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.love-story {
+    text-align: center;
+    margin: 2rem 0;
+    position: relative;
+}
+
+.heart-formula {
+    font-size: 3rem;
+    color: #ff6b6b;
+    margin: 1rem 0;
+    animation: heartbeat 1.5s infinite;
+}
+
+.story-text {
+    font-size: 1.2rem;
+    color: #5a4a4a;
+    line-height: 1.6;
+}
+
+/* Календарь */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1rem;
+    background: #fff9f9;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.day {
+    background: #fff;
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.day:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.heart-date {
+    background: transparent !important;
+    color: #ff6b6b !important;
+    position: relative;
+    font-weight: 700;
+    z-index: 1;
+}
+
+.heart-date::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23ff6b6b" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') no-repeat center;
+    background-size: contain;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+}
+
+/* Карта */
+.map-link {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    padding: 1.5rem 3rem;
+    background: #ff6b6b;
+    color: white !important;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    margin: 1rem auto;
+}
+
+.map-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(255,107,107,0.3);
+}
+
+.firework-container {
+    position: relative;
+    overflow: visible;
+}
+
+.firework {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: rgba(255,255,255,0.7);
+    border-radius: 50%;
+    opacity: 0;
+    animation: firework 1.5s infinite;
+}
+
+@keyframes firework {
+    0% { transform: scale(0); opacity: 1; }
+    100% { transform: scale(5); opacity: 0; }
+}
+
+/* Дресс-код */
+.colors-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.color-box {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.5s ease;
+    padding: 1.5rem;
+    aspect-ratio: 1/1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: 500;
+}
+
+.color-box::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, 
+        transparent, 
+        rgba(255,255,255,0.3), 
+        transparent);
+    transform: rotate(45deg);
+    transition: all 0.5s;
+}
+
+.color-box:hover::before {
+    animation: shine 1.5s;
+}
+
+.color-box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+@keyframes shine {
+    0% { left: -50%; }
+    100% { left: 150%; }
+}
+
+/* Цвета дресс-кода */
+.brown { background: #6d4c41; color: #fff; }
+.green { background: #2e7d32; color: #fff; }
+.beige { background: #d7ccc8; color: #5a4a4a; text-shadow: none; }
+.pink { background: #f06292; color: #fff; }
+
+/* Тайминг */
+.timeline-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.timeline-item {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 1rem;
+    padding: 1rem 0;
+}
+
+@media (max-width: 480px) {
+    .timeline-item {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+}
+/* Карта */
+.map-title-link {
+    text-decoration: none;
+    display: block;
+    text-align: center;
+}
+
+.map-title {
+    transition: all 0.3s ease;
+    display: inline-block;
+    padding: 0.5rem 2rem;
+    border-radius: 30px;
+    background: rgba(255,107,107,0.1);
+}
+
+.map-title:hover {
+    transform: scale(1.05);
+    background: rgba(255,107,107,0.2);
+}
+
+/* Тайминг */
+.timeline-item {
+    position: relative;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.timeline-item:last-child {
+    border-bottom: none;
+}
+
+.timeline-icon {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    vertical-align: middle;
+}
+
+.timeline-decor {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.3;
+}
+
+/* Анкета */
+.form-container {
+    background: linear-gradient(135deg, #fff9f9 0%, #ffffff 100%);
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 1.5rem 0;
+    color: #5a4a4a;
+}
+
+.form-button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: #ff6b6b;
+    color: white !important;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.form-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255,107,107,0.3);
+}
+
+.button-decor {
+    position: absolute;
+    right: -10px;
+    top: -15px;
+    font-size: 1.5rem;
+    opacity: 0.3;
+}
+
+/* Финал */
+.final {
+    background: linear-gradient(45deg, #fff5f5 0%, #ffffff 100%);
+}
+
+.final-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.5rem;
+    text-align: center;
+    line-height: 1.3;
+    margin: 2rem 0;
+    color: #ff6b6b;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.final-decor {
+    text-align: center;
+    font-size: 2rem;
+    margin-top: 2rem;
+}
+
+.final-decor span {
+    margin: 0 1rem;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
 }
 
 /* Адаптивность */
 @media (max-width: 768px) {
-    .title {
-        font-size: 2.5rem;
+    .final-title {
+        font-size: 2rem;
     }
     
-    .photos-grid {
-        flex-direction: column;
+    .form-container {
+        padding: 2rem;
     }
-}
-
-/* Стили для Яндекс.Карты */
-.map-container {
-    height: 400px;
-    width: 100%;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }

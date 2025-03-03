@@ -1,48 +1,68 @@
-// Инициализация календаря
+// Фон с сердечками
+function createHearts() {
+    const heartContainer = document.createElement('div');
+    heartContainer.className = 'heart-bg';
+    
+    for(let i = 0; i < 50; i++) {
+        const heart = document.createElement('span');
+        heart.innerHTML = '❤';
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.animationDelay = Math.random() * 5 + 's';
+        heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+        heartContainer.appendChild(heart);
+    }
+    document.body.prepend(heartContainer);
+}
+
+// Адаптация календаря
 function initCalendar() {
     const calendar = document.getElementById('calendar');
-    const daysInMonth = 30;
-    const weddingDay = 11;
+    const weddingDate = new Date(2024, 5, 11);
+    const daysInMonth = new Date(2024, 6, 0).getDate();
     
     let html = '';
+    const firstDay = new Date(2024, 5, 1).getDay();
+    for(let i = 0; i < firstDay; i++) {
+        html += `<div class="day empty"></div>`;
+    }
+
     for(let day = 1; day <= daysInMonth; day++) {
+        const isWeddingDay = day === 11;
         html += `
-            <div class="day ${day === weddingDay ? 'heart-date' : ''}">
-                ${day}
-                ${day === weddingDay ? '<div class="heart"></div>' : ''}
+            <div class="day ${isWeddingDay ? 'heart-date' : ''}">
+                ${isWeddingDay ? '<div class="heart-animation">11</div>' : day}
             </div>
         `;
     }
     calendar.innerHTML = html;
 }
 
-// Инициализация Яндекс.Карты
-function initMap() {
-    ymaps.ready(function() {
-        const map = new ymaps.Map('yandex-map', {
-            center: [55.751574, 37.573856],
-            zoom: 15,
-            controls: ['zoomControl']
-        });
-        
-        const placemark = new ymaps.Placemark([55.751574, 37.573856], {
-            hintContent: 'Наше место свадьбы!'
-        });
-        map.geoObjects.add(placemark);
+// Адаптивное меню
+function initMobileMenu() {
+    const menuButton = document.createElement('button');
+    menuButton.className = 'mobile-menu-button';
+    menuButton.innerHTML = '☰';
+    document.body.prepend(menuButton);
+
+    menuButton.addEventListener('click', () => {
+        document.documentElement.classList.toggle('menu-open');
     });
 }
 
-// Плавный скролл
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
-    });
+document.addEventListener('DOMContentLoaded', () => {
+    createHearts();
+    initCalendar();
+    initMobileMenu();
 });
+// Анимация финальной секции
+function initFinalAnimation() {
+    const decorElements = document.querySelectorAll('.final-decor span');
+    decorElements.forEach((el, index) => {
+        el.style.animationDelay = index * 0.3 + 's';
+    });
+}
 
 document.addEventListener('DOMContentLoaded', () => {
-    initCalendar();
-    initMap();
+    // ... предыдущий код ...
+    initFinalAnimation();
 });
